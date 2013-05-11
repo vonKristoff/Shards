@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+<meta charset="utf-8">
+<style>
+*{margin: 0px;padding:0}
+body {
+background: #333;
+overflow: hidden;
+}
+</style>
+<body>
+
+<div id="bg"></div>
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="gradient.js"></script>
+<script>
+(function($) {
+
+$('#bg').gradient('rgba(0,255,0,.3)','rgba(0,0,255,.3)','#fff',0,3);
+
+})(jQuery);
+</script>
