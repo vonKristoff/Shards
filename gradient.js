@@ -1,6 +1,6 @@
 (function($) {
 
-var Plugin = function(me,c1,c2,sh,wheel,steps,fs){
+var Plugin = function(me,c1,c2,sh,wheel,steps,alf,fs){
 
 	this.el = me;
 	this.fs = fs;
@@ -9,6 +9,7 @@ var Plugin = function(me,c1,c2,sh,wheel,steps,fs){
 		c1 		: c1,
 		c2 		: c2,
 		shade 	: sh,
+		alpha 	: alf,
 		steps 	: steps,
 		wheel	: wheel
 	}
@@ -27,11 +28,9 @@ Plugin.prototype.init = function(){
 		if(steps > 0) this.filter += ', ';
 	}
 	this.el.css('background',this.filter);
-	console.log(this.fs);
-	if(this.fs){	
-		console.log(true);
-		this.fit();
-	}
+	
+	if(this.fs) this.fit();
+
 }
 Plugin.prototype.stringBuilder = function(){
 
@@ -40,7 +39,7 @@ Plugin.prototype.stringBuilder = function(){
 		c2 = this.catcol(col.c2),
 		shade = this.catcol(col.shade);
 				
-	this.filter += '-webkit-gradient(linear,'+this.positions+'from(#fff), to('+c1+'), color-stop(0,'+c2+'), color-stop(.1,'+shade+'))'
+	this.filter += '-webkit-gradient(linear,'+this.positions+'from(#ff0), to('+c1+'), color-stop(0,'+c2+'), color-stop(.01,'+shade+'))'
 }
 Plugin.prototype.catcol = function(col){
 		
@@ -62,7 +61,7 @@ Plugin.prototype.position = function(){
 	var left = ~~(Math.random()*100),
 		right = left + 1,
 		rotationBase = ~~(Math.random()*100),
-		angle = rotationBase + (-5 + (~~(Math.random()*10)));
+		angle = rotationBase + (-5 + (~~(Math.random()*15)));
 	
 	var positions = {
 			left:left,
@@ -80,11 +79,11 @@ Plugin.prototype.colourFilter = function(){
 	var col = this.colours;
 	
 	col.c1 = this.colstep(col.c1);
-	col.c1.push(.25);
+	col.c1.push(col.alpha);
 	col.c2 = this.colstep(col.c2);
-	col.c2.push(.25);
+	col.c2.push(col.alpha);
 	col.shade = this.colstep(col.shade);
-	col.shade.push(.25);
+	col.shade.push(col.alpha);
 }
 Plugin.prototype.colstep = function(col){
 	
@@ -175,20 +174,18 @@ Plugin.prototype.hue2rgb = function(m1, m2, hue) {
 
 	return 255 * v;
 };
-jQuery.fn.gradient = function(colour1, colour2, shade, wheel, steps, fullscreen){
-
-	// maybe have wheel (colour steps) as a decimal value
+jQuery.fn.shards = function(colour1, colour2, shade, wheel, steps, alpha, fullscreen){
 
 	var el = $(this);
-	var gradients = new Plugin(el,colour1,colour2,shade,wheel,steps,fullscreen);
+	var shards = new Plugin(el,colour1,colour2,shade,wheel,steps,alpha,fullscreen);
 	
 	if(fullscreen){
 		$(window).resize( function(){
-			gradients.fit();
+			shards.fit();
 		});
 	}
 
-	return this.el;	// chaining enabled
+	return this.el;	
 }
 
 })(jQuery);

@@ -9,26 +9,27 @@ overflow: hidden;
 }
 .box{
 	left:50%;
-	margin-left: -100px;
-	top:200px;
+	margin-left: -300px;
+	top:150px;
 	box-shadow:0 6px 10px -3px rgba(0,0,0,.4);
 	position: absolute;
-	width:200px;
-	height: 500px;
+	width:600px;
+	height: 400px;
+	/*-webkit-transform:rotate(37deg);*/
 }
 </style>
 <body>
 
 <div id="bg"></div>
-<div class="box">hello</div>
+<div class="box">SHARD</div>
 	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="gradient.js"></script>
 <script>
 (function($) {
 
-$('#bg').gradient([0,255,0,.015],[255,120,0,.315],[255,155,255,.1],0,20,true);
-$('.box').gradient([0,255,0,.015],[255,120,0,.315],[255,155,255,.1],0,4,false);
+$('#bg').shards([0,255,0,.15],[55,120,0,.25],[0,0,0,.25],0,20,.1,true);
+$('.box').shards([255,255,0,.015],[255,120,190,.315],[255,155,255,.1],0,4,.5,false);
 
 })(jQuery);
 </script>
