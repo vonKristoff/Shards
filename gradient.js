@@ -27,7 +27,7 @@ Plugin.prototype.init = function(){
 		steps -= 1;
 		if(steps > 0) this.filter += ', ';
 	}
-	this.el.css('background',this.filter);
+	this.el.css('background-image',this.filter);
 	
 	if(this.fs) this.fit();
 
