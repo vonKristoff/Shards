@@ -1,8 +1,9 @@
 (function($) {
 
-var Plugin = function(me,c1,c2,sh,wheel,steps){
+var Plugin = function(me,c1,c2,sh,wheel,steps,fs){
 
 	this.el = me;
+	this.fs = fs;
 	this.filter = '';
 	this.colours = {
 		c1 		: c1,
@@ -26,11 +27,28 @@ Plugin.prototype.init = function(){
 		if(steps > 0) this.filter += ', ';
 	}
 	this.el.css('background',this.filter);
-	this.fit();
+	console.log(this.fs);
+	if(this.fs){	
+		console.log(true);
+		this.fit();
+	}
 }
 Plugin.prototype.stringBuilder = function(){
-	var col = this.colours;
-	this.filter += '-webkit-gradient(linear,'+this.positions+'from(rgba(255,255,255,.1)), to('+col.c1+'), color-stop(0,'+col.c2+'), color-stop(.1,'+col.shade+'))'
+
+	var col = this.colours,
+		c1 = this.catcol(col.c1),
+		c2 = this.catcol(col.c2),
+		shade = this.catcol(col.shade);
+				
+	this.filter += '-webkit-gradient(linear,'+this.positions+'from(#fff), to('+c1+'), color-stop(0,'+c2+'), color-stop(.1,'+shade+'))'
+}
+Plugin.prototype.catcol = function(col){
+		
+	var beg = 'rgba(',
+		end = ')',
+		part = col.toString();
+
+	return beg.concat(part).concat(end);
 }
 Plugin.prototype.fit = function(){
 	this.el.css({
@@ -57,18 +75,24 @@ Plugin.prototype.position = function(){
 
 	return string
 }
-
 Plugin.prototype.colourFilter = function(){
 
-	var rgb = this.colours.c1.substring(5);
-	var l = rgb.length;
-	var array = (rgb.substr(0,l - 4)).split(',').map(Number);
+	var col = this.colours;
 	
-	var hsl = this.hsl(array);
-	hsl[0] = ~~(Math.random()*360);
-	var rtn = this.rgb(hsl);
-
-
+	col.c1 = this.colstep(col.c1);
+	col.c1.push(.25);
+	col.c2 = this.colstep(col.c2);
+	col.c2.push(.25);
+	col.shade = this.colstep(col.shade);
+	col.shade.push(.25);
+}
+Plugin.prototype.colstep = function(col){
+	
+	var hsl = this.hsl(col);
+	hsl[0] = ~~(Math.random()*660);
+	hsl[1] = 80;
+	hsl[2] = 60;
+	return this.rgb(hsl);
 }
 Plugin.prototype.hsl = function(rgb){
 
@@ -133,16 +157,36 @@ Plugin.prototype.rgb = function(hsl){
 	}
 	return [Math.round(r), Math.round(g), Math.round(b)];
 }
-jQuery.fn.gradient = function(colour1, colour2, shade, wheel, steps){
+Plugin.prototype.hue2rgb = function(m1, m2, hue) {
+	var v;
+	if (hue < 0)
+		hue += 1;
+	else if (hue > 1)
+		hue -= 1;
+
+	if (6 * hue < 1)
+		v = m1 + (m2 - m1) * hue * 6;
+	else if (2 * hue < 1)
+		v = m2;
+	else if (3 * hue < 2)
+		v = m1 + (m2 - m1) * (2/3 - hue) * 6;
+	else
+		v = m1;
+
+	return 255 * v;
+};
+jQuery.fn.gradient = function(colour1, colour2, shade, wheel, steps, fullscreen){
 
 	// maybe have wheel (colour steps) as a decimal value
 
 	var el = $(this);
-	var gradients = new Plugin(el,colour1,colour2,shade,wheel,steps);
+	var gradients = new Plugin(el,colour1,colour2,shade,wheel,steps,fullscreen);
 	
-	$(window).resize( function(){
-		gradients.fit();
-	});
+	if(fullscreen){
+		$(window).resize( function(){
+			gradients.fit();
+		});
+	}
 
 	return this.el;	// chaining enabled
 }
