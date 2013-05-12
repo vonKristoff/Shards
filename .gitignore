@@ -1,5 +1,5 @@
-.sass
-.scss
+*.sass
+*.scss
 .DS_Store
-icon.png
+/icon.png
 Guardfile
