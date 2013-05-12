@@ -1,3 +1,13 @@
+/**
+* Shards jQuery plug-in
+* Multilayered gradient background effect
+*
+* @author Jean-Christophe Nicolas <mrjcnicolas@gmail.com>
+* @homepage http://bite-software.co.uk/shards/
+* @version 1
+* @license MIT http://opensource.org/licenses/MIT
+* @date 12-05-2013
+*/
 (function($) {
 
 var Plugin = function(me,c1,c2,sh,steps,wheel,light,alf,fs){
@@ -13,8 +23,7 @@ var Plugin = function(me,c1,c2,sh,steps,wheel,light,alf,fs){
 		steps 	: steps,
 		wheel	: wheel,
 		light 	: light 	// protect values
-	}
-	
+	}	
 	this.init();
 }
 Plugin.prototype.init = function(){
@@ -91,7 +100,7 @@ Plugin.prototype.colstep = function(col){
 	var hsl = this.hsl(col),
 		wheel = this.colours.wheel,
 		hue = (360 * wheel);
-		
+
 	hsl[0] = hsl[0] - (~~(Math.random()*hue/2)) + (~~(Math.random()*hue/2));
 	hsl[1] = wheel * 100;
 	hsl[2] = 30 * this.colours.light;
@@ -178,7 +187,7 @@ Plugin.prototype.hue2rgb = function(m1, m2, hue) {
 
 	return 255 * v;
 };
-jQuery.fn.shards = function(colour1, colour2, shadeColour, steps, wheel, lightness, alpha, fullscreen){
+$.fn.shards = function(colour1, colour2, shadeColour, steps, wheel, lightness, alpha, fullscreen){
 
 	var el = $(this);
 	var shards = new Plugin(el,colour1,colour2,shadeColour,steps,wheel,lightness,alpha,fullscreen);
