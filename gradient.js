@@ -1,6 +1,6 @@
 (function($) {
 
-var Plugin = function(me,c1,c2,sh,wheel,steps,alf,fs){
+var Plugin = function(me,c1,c2,sh,steps,wheel,light,alf,fs){
 
 	this.el = me;
 	this.fs = fs;
@@ -11,7 +11,8 @@ var Plugin = function(me,c1,c2,sh,wheel,steps,alf,fs){
 		shade 	: sh,
 		alpha 	: alf,
 		steps 	: steps,
-		wheel	: wheel
+		wheel	: wheel,
+		light 	: light 	// protect values
 	}
 	
 	this.init();
@@ -87,10 +88,13 @@ Plugin.prototype.colourFilter = function(){
 }
 Plugin.prototype.colstep = function(col){
 	
-	var hsl = this.hsl(col);
-	hsl[0] = ~~(Math.random()*660);
-	hsl[1] = 80;
-	hsl[2] = 60;
+	var hsl = this.hsl(col),
+		wheel = this.colours.wheel,
+		hue = (360 * wheel);
+		
+	hsl[0] = hsl[0] - (~~(Math.random()*hue/2)) + (~~(Math.random()*hue/2));
+	hsl[1] = wheel * 100;
+	hsl[2] = 30 * this.colours.light;
 	return this.rgb(hsl);
 }
 Plugin.prototype.hsl = function(rgb){
@@ -174,10 +178,10 @@ Plugin.prototype.hue2rgb = function(m1, m2, hue) {
 
 	return 255 * v;
 };
-jQuery.fn.shards = function(colour1, colour2, shade, wheel, steps, alpha, fullscreen){
+jQuery.fn.shards = function(colour1, colour2, shadeColour, steps, wheel, lightness, alpha, fullscreen){
 
 	var el = $(this);
-	var shards = new Plugin(el,colour1,colour2,shade,wheel,steps,alpha,fullscreen);
+	var shards = new Plugin(el,colour1,colour2,shadeColour,steps,wheel,lightness,alpha,fullscreen);
 	
 	if(fullscreen){
 		$(window).resize( function(){

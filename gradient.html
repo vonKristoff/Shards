@@ -8,13 +8,13 @@ background: #333;
 overflow: hidden;
 }
 .box{
-	left:50%;
+	/*left:50%;
 	margin-left: -300px;
 	top:150px;
 	box-shadow:0 6px 10px -3px rgba(0,0,0,.4);
 	position: absolute;
 	width:600px;
-	height: 400px;
+	height: 400px;*/
 	/*-webkit-transform:rotate(37deg);*/
 }
 </style>
@@ -28,8 +28,18 @@ overflow: hidden;
 <script>
 (function($) {
 
-$('#bg').shards([0,255,0,.15],[55,120,0,.25],[0,0,0,.25],0,20,.1,true);
-$('.box').shards([255,255,0,.015],[255,120,190,.315],[255,155,255,.1],0,4,.5,false);
+$('#bg').shards([0,55,0,.5],[255,20,220,.25],[0,0,0,.25],20,.58,2,.15,true);
+// $('.box').shards([255,255,0,.015],[255,120,190,.315],[255,155,255,.1],2,1,1,.5,false);
 
 })(jQuery);
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-40858550-1', 'bite-software.co.uk');
+  ga('send', 'pageview');
+
 </script>
