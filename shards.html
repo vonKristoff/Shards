@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+<meta charset="utf-8">
+<head>
+<title>SHARDS - A jQuery plugin</title>
+<link rel="icon" href="favicon.ico" type="image/x-icon" />
+<style>* {
+  margin: 0px;
+  padding: 0; }
+body {
+  background: #333;
+  overflow: hidden; }
+</style>
+</head>
+<body>
+<div id="bg"></div>	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="shards.min.js"></script>
+<script>
+(function($) {
+  $('#bg').shards([10,35,180,.15],[255,20,220,.25],[0,0,0,.25],20,.58,2,.15,true);
+})(jQuery);
+</script>
