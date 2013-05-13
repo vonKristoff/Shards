@@ -3,17 +3,11 @@ Shards
 
 A jQuery plugin that builds a CSS multi-layered gradient background on any element - resembling neon shards!
 
+BASIC USAGE:
 ```javascript
-<h2>Example of code</h2>
 
-<pre>
-    <div class="container">
-        <div class="block two first">
-            <h2>Your title</h2>
-            <div class="wrap">
-            //Your content
-            </div>
-        </div>
-    </div>
-</pre>
+$('element').shards(colour_1, colour_2, shade_colour, number_of_shards, complexity, lightness, alpha_constant, fullscreen);
+
 ```
+config options:
+<b>colour 1</b>
