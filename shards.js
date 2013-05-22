@@ -28,18 +28,31 @@ var Plugin = function(me,c1,c2,sh,steps,wheel,light,alf,fs){
 }
 Plugin.prototype.init = function(){
 
-	var steps = this.colours.steps;
-	
-	while( steps > 0){
-		this.positions = this.position();
-		this.stringBuilder();
-		this.colourFilter();
-		steps -= 1;
-		if(steps > 0) this.filter += ', ';
+	this.cssPrefix = false;
+
+	if($.browser.webkit) {
+		cssPrefix = "webkit";
 	}
-	this.el.css('background-image',this.filter);
-	
-	if(this.fs) this.fit();
+	else if($.browser.mozilla) {
+		cssPrefix = false;
+	}
+
+	if(this.cssPrefix){
+		var steps = this.colours.steps;
+		
+		while( steps > 0){
+			this.positions = this.position();
+			this.stringBuilder();
+			this.colourFilter();
+			steps -= 1;
+			if(steps > 0) this.filter += ', ';
+		}
+		this.el.css('background-image',this.filter);
+		
+		if(this.fs) this.fit();
+	}else{
+		console.log('sorry bro, your browser isnt supported.');
+	}
 
 }
 Plugin.prototype.stringBuilder = function(){
@@ -48,8 +61,15 @@ Plugin.prototype.stringBuilder = function(){
 		c1 = this.catcol(col.c1),
 		c2 = this.catcol(col.c2),
 		shade = this.catcol(col.shade);
+
+	if($.browser.webkit) {
+		this.filter += '-webkit-linear-gradient(linear,'+this.positions+'from(#ff0), to('+c1+'), color-stop(0,'+c2+'), color-stop(.01,'+shade+'))';
+	}
+	// else if($.browser.mozilla) {
+	// 	this.filter += 'linear-gradient(linear,'+this.positions+'from(#ff0), to('+c1+'), color-stop(0,'+c2+'), color-stop(.01,'+shade+'))'
+	// }
 				
-	this.filter += '-webkit-gradient(linear,'+this.positions+'from(#ff0), to('+c1+'), color-stop(0,'+c2+'), color-stop(.01,'+shade+'))'
+	
 }
 Plugin.prototype.catcol = function(col){
 		
