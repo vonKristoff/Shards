@@ -3,6 +3,8 @@ Shards
 
 A jQuery plugin that builds a CSS multi-layered gradient background on any element - resembling neon shards!
 
+<a href='http://bite-software.com/shards'>Visit plugin site</a>
+
 NB. Currently Only works for webkit based browsers.
 
 BASIC USAGE:
