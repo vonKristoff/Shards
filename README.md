@@ -5,7 +5,7 @@ A jQuery plugin that builds a CSS multi-layered gradient background on any eleme
 
 <a href='http://bite-software.co.uk/shards'>Visit plugin site</a>
 
-NB. Currently Only works for webkit based browsers.
+Full Modern CSS3 Browser support.
 
 BASIC USAGE:
 ```javascript
@@ -33,5 +33,5 @@ $('element').shards(
 </ul>
 <h1>example</h1>
 ```javascript
-$('.bg').shards([0,0,0,.5],[255,0,0,.2],[255.255,0,.1],10,.9,.1,true);
+$('.bg').shards([0,0,0,.5],[255,0,0,.2],[255.255,0,.1],10,2,.1,true);
 ```
