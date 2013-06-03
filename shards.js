@@ -4,25 +4,27 @@
 *
 * @author Jean-Christophe Nicolas <mrjcnicolas@gmail.com>
 * @homepage http://bite-software.co.uk/shards/
-* @version 1
+* @version 1.1
 * @license MIT http://opensource.org/licenses/MIT
-* @date 12-05-2013
+* @date 03-06-2013
 */
 (function($) {
 
 var Plugin = function(me,c1,c2,sh,steps,wheel,light,alf,fs){
 
 	this.el = me;
+	this.sharp = true;
 	this.fs = fs;
 	this.filter = '';
 	this.colours = {
 		c1 		: c1,
 		c2 		: c2,
+		c3		: c2,
 		shade 	: sh,
 		alpha 	: alf,
 		steps 	: steps,
 		wheel	: wheel,
-		light 	: light 	// protect values
+		light 	: ~~(light)
 	}	
 	this.init();
 }
@@ -31,17 +33,21 @@ Plugin.prototype.init = function(){
 	this.cssPrefix = false;
 
 	if($.browser.webkit) {
-		cssPrefix = "webkit";
+		this.cssPrefix = '-webkit';
 	}
 	else if($.browser.mozilla) {
-		cssPrefix = false;
-	}
+		this.cssPrefix = '-moz';
+	}else if($.browser.opera) {
+		this.cssPrefix = '-o';
+	}else if($.browser.msie) {
+		this.cssPrefix = '-ms';
+	};
 
 	if(this.cssPrefix){
 		var steps = this.colours.steps;
 		
 		while( steps > 0){
-			this.positions = this.position();
+			this.percents = this.percentage();
 			this.stringBuilder();
 			this.colourFilter();
 			steps -= 1;
@@ -60,15 +66,11 @@ Plugin.prototype.stringBuilder = function(){
 	var col = this.colours,
 		c1 = this.catcol(col.c1),
 		c2 = this.catcol(col.c2),
-		shade = this.catcol(col.shade);
-
-	if($.browser.webkit) {
-		this.filter += '-webkit-linear-gradient(linear,'+this.positions+'from(#ff0), to('+c1+'), color-stop(0,'+c2+'), color-stop(.01,'+shade+'))';
-	}
-	// else if($.browser.mozilla) {
-	// 	this.filter += 'linear-gradient(linear,'+this.positions+'from(#ff0), to('+c1+'), color-stop(0,'+c2+'), color-stop(.01,'+shade+'))'
-	// }
-				
+		c3 = this.catcol(col.c3),
+		shade = this.catcol(col.shade),
+		deg = ~~(Math.random()*360);
+	
+	this.filter += this.cssPrefix+'-linear-gradient('+deg+'deg,'+c1+' '+this.percents.a+' ,'+shade+' '+this.percents.b+', '+c2+' '+this.percents.c+', '+c3+' '+this.percents.d+')';	
 	
 }
 Plugin.prototype.catcol = function(col){
@@ -86,23 +88,21 @@ Plugin.prototype.fit = function(){
 	})
 }
 
-Plugin.prototype.position = function(){
-
-	var left = ~~(Math.random()*100),
-		right = left + 1,
-		rotationBase = ~~(Math.random()*100),
-		angle = rotationBase + (-5 + (~~(Math.random()*15)));
+Plugin.prototype.percentage = function(){
+		
+	var p1 = ~~(Math.random()*85),
+	p2 = p1 + ~~(Math.random()*15),
+	p3 = p2,
+	p4 = 100-p2 + ~~(Math.random()*p2);	
 	
-	var positions = {
-			left:left,
-			right:right,
-			rotationBase:rotationBase,
-			angle:angle
-		};
+	var percents = {
+		a:p1+'%',
+		b:p2+'%',
+		c:p3+'%',
+		d:p4+'%'
+	}
 
-	var string = positions.left + '% ' + positions.rotationBase + '%, ' + positions.right + '% ' + positions.angle + '%,';
-
-	return string
+	return percents;
 }
 Plugin.prototype.colourFilter = function(){
 
@@ -112,6 +112,8 @@ Plugin.prototype.colourFilter = function(){
 	col.c1.push(col.alpha);
 	col.c2 = this.colstep(col.c2);
 	col.c2.push(col.alpha);
+	col.c3 = this.colstep(col.c2);
+	col.c3.push(col.alpha);
 	col.shade = this.colstep(col.shade);
 	col.shade.push(col.alpha);
 }
@@ -120,6 +122,8 @@ Plugin.prototype.colstep = function(col){
 	var hsl = this.hsl(col),
 		wheel = this.colours.wheel,
 		hue = (360 * wheel);
+
+	if(this.colours.light>3) this.colours.light = 3;
 
 	hsl[0] = hsl[0] - (~~(Math.random()*hue/2)) + (~~(Math.random()*hue/2));
 	hsl[1] = wheel * 100;
