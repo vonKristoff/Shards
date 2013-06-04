@@ -7,10 +7,10 @@
         "linear-gradient",
         "effect"
     ],
-    "version": "1.1.1",
+    "version": "1.1.2",
     "author": {
         "name": "vonKristoff",
-        "url": "https://atomicircus.org"
+        "url": "http://atomicircus.org"
     },
     "licenses": [
         {
@@ -18,7 +18,7 @@
             "url": "http://opensource.org/licenses/MIT"
         }
     ],
-    "homepage": "https://bite-software.co.uk/shards",
+    "homepage": "http://bite-software.co.uk/shards",
     "docs": "https://github.com/vonKristoff/Shards",
     "download": "https://github.com/vonKristoff/Shards",
     "dependencies": {
