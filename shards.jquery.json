@@ -4,7 +4,8 @@
     "description": "a jQuery plugin that creates a multi-coloured, multi-layered gradient effect on any DOM element",
     "keywords": [
         "css3",
-        "linear-gradient"
+        "linear-gradient",
+        "effect"
     ],
     "version": "1.1.0",
     "author": {
@@ -19,7 +20,7 @@
     ],
     "homepage": "https://bite-software.co.uk/shards",
     "docs": "https://github.com/vonKristoff/Shards",
-    "download": "http://code.jquery.com/#color",
+    "download": "https://github.com/vonKristoff/Shards",
     "dependencies": {
         "jquery": ">=1.5"
     }
