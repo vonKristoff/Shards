@@ -1,13 +1,14 @@
 {
     "name": "shards",
-    "title": "Beautiful CSS3 gradient generator",
+    "title": "SHARDS - Beautiful CSS3 gradient generator",
     "description": "a jQuery plugin that creates a multi-coloured, multi-layered gradient effect on any DOM element",
     "keywords": [
         "css3",
         "linear-gradient",
-        "effect"
+        "effect",
+        "jquery"
     ],
-    "version": "1.1.2",
+    "version": "1.1.3",
     "author": {
         "name": "vonKristoff",
         "url": "http://atomicircus.org"
@@ -20,7 +21,7 @@
     ],
     "homepage": "http://bite-software.co.uk/shards",
     "docs": "https://github.com/vonKristoff/Shards",
-    "download": "https://github.com/vonKristoff/Shards",
+    "download": "https://github.com/vonKristoff/Shards/archive/master.zip",
     "dependencies": {
         "jquery": ">=1.5"
     }
