@@ -32,14 +32,15 @@ Plugin.prototype.init = function(){
 
 	this.cssPrefix = false;
 
-	if($.browser.webkit) {
+	var ua = navigator.userAgent;
+	if(/Chrome\/(\S+)/.test(ua)|| /AppleWebKit\/(\S+)/.test(ua)) {
 		this.cssPrefix = '-webkit';
 	}
-	else if($.browser.mozilla) {
+	else if(/Firefox\/(\S+)/.test(ua)) {
 		this.cssPrefix = '-moz';
-	}else if($.browser.opera) {
+	}else if(window.opera) {
 		this.cssPrefix = '-o';
-	}else if($.browser.msie) {
+	}else if(/MSIE ([^;]+)/.test(ua)) {
 		this.cssPrefix = '-ms';
 	};
 
